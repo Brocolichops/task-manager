@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 void addTask();
+void removeTask();
+void updateTask();
+void displayTasks();
+void markAsCompleted();
+void filterTasks();
 
 int main() {
+
 
 	printf("----------WELCOME----------\n");
 
@@ -13,6 +19,36 @@ int main() {
 		printf("Enter your choice: ");
 		scanf_s("%d", &userChoice);
 
+
+		switch (userChoice) {
+		case 1:
+			addTask();
+			break;
+
+		case 2:
+			removeTask();
+			break;
+
+		case 3:
+			updateTask();
+			break;
+
+		case 4:
+			displayTasks();
+			break;
+
+		case 5:
+			markAsCompleted();
+			break;
+
+		case 6: 
+			filterTasks();
+			break;
+
+		default:
+			printf("INVALID INPUT! Please enter a number from 1-6 or 9 to QUIT\n");
+			continue;
+		}
 		if (userChoice == 9) {
 			running = false; 
 			printf("Exiting program!");
@@ -20,4 +56,32 @@ int main() {
 	}
 
 	return 0;
+}
+
+void addTask() {
+
+	return;
+}
+
+void removeTask() {
+	return;
+}
+
+void updateTask() {
+	return;
+}
+
+void displayTasks() {
+
+	return;
+}
+
+void markAsCompleted() {
+
+	return;
+}
+
+void filterTasks() {
+
+	return;
 }
