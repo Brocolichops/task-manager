@@ -48,14 +48,12 @@ int main() {
 		case 9:
 			running = false;
 			printf("EXITING PROGRAM!");
+			break;
 		default:
 			printf("INVALID INPUT! Please enter a number from 1-6 or 9 to QUIT\n");
 			continue;
 		}
-		if (userChoice == 9) {
-			running = false; 
-			printf("Exiting program!");
-		}
+
 	}
 
 	return 0;
