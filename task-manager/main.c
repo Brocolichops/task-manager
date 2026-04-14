@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
-void addTask();
+#include <stdlib.h>
+#include <string.h>
+
+void addTask(int id, char name[25], char priority[4], char completion_status[10], char* task_array);
 void removeTask();
 void updateTask();
 void displayTasks();
@@ -11,7 +14,7 @@ int main() {
 
 
 	printf("----------WELCOME----------\n");
-
+	char *task_array = malloc(43);
 	bool running = true;
 	int userChoice;
 	while (running) {
@@ -19,10 +22,26 @@ int main() {
 		printf("Enter your choice: ");
 		scanf_s("%d", &userChoice);
 
+		int id;
+		char name[25];
 
+		char priority[4];
+		char completion_status[10];
 		switch (userChoice) {
 		case 1:
-			addTask();
+			printf("ID: ");
+			scanf_s("%d", &id);
+			getchar();
+
+			printf("Name: ");
+			fgets(name, 25, stdin);
+
+			printf("Priority (LOW, MED OR HIGH): ");
+			fgets(priority, 4, stdin);
+
+			strcpy(completion_status, "to-do");
+			addTask(id, name, priority, completion_status, *task_array);
+
 			break;
 
 		case 2:
@@ -59,7 +78,7 @@ int main() {
 	return 0;
 }
 
-void addTask() {
+void addTask(int id, char name[25], char priority[4], char completion_status[10], char* task_array){
 
 	return;
 }
