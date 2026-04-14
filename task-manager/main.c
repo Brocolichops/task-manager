@@ -45,6 +45,9 @@ int main() {
 			filterTasks();
 			break;
 
+		case 9:
+			running = false;
+			printf("EXITING PROGRAM!");
 		default:
 			printf("INVALID INPUT! Please enter a number from 1-6 or 9 to QUIT\n");
 			continue;
