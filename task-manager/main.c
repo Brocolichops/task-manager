@@ -3,12 +3,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-void addTask(int id, char name[25], char priority[4], char completion_status[10], char* task_array);
+void addTask(int id, char name[25], char priority[4], char completion_status[10]);
 void removeTask();
 void updateTask();
 void displayTasks();
 void markAsCompleted();
 void filterTasks();
+
+typedef struct {
+	int id;
+	char name[25];
+	char priority[4];
+	char completionStatus[10];
+} task;
 
 int main() {
 
