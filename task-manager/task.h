@@ -23,9 +23,10 @@ void addTask(Task** taskArray, int* taskCount);
 
 void removeTask(Task* taskArray, int* taskCount);
 
+void updateTask(Task* taskArray, int taskCount);
+
 /*void displayTasks(Task* taskArray, int taskCount);
 
-void updateTask(Task* taskArray, int taskCount);
 
 void filterTasks(Task* taskArray, int taskCount);
 

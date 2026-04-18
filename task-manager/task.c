@@ -71,7 +71,48 @@ void removeTask(Task* taskArray, int* taskCount)
 
 void updateTask(Task* taskArray, int taskCount)
 {
-	printf("updateTaskStatus not implemented yet.\n");
+	int id;
+	int userChoice;
+	printf("Enter id of task: ");
+	scanf_s("%d", &id);
+	
+	for (int i = 0; i < taskCount; i++) {
+		
+		if (taskArray[i].id == id) {
+			printf("Task ID found!\nWhat would you like to update?\n1. Task name\n2. Task priority\nEnter number: ");
+			scanf_s("%d", &userChoice);
+			getchar();
+
+			if (userChoice == 1) {
+				printf("Current description: %s\n", taskArray[i].description);
+
+				printf("Enter new description: ");
+				fgets(taskArray[i].description, DESC_SIZE, stdin);
+
+				taskArray[i].description[strcspn(taskArray[i].description, "\n")] = '\0';
+
+				printf("Task description sucessfully.\n");
+				return;
+			}
+			else if (userChoice == 2) {
+				printf("Current priority: %s\n", taskArray[i].priority);
+
+				printf("Enter new priority (LOW, MED OR HIGH): ");
+				fgets(taskArray[i].priority, PRIORITY_SIZE, stdin);
+
+				taskArray[i].priority[strcspn(taskArray[i].priority, "\n")] = '\0';
+
+				printf("Task priority updated succesfully.\n");
+				return;
+			}
+			else {
+				printf("Invalid input. Returning to menu...\n");
+				return;
+			}
+		}
+	}
+	printf("Task ID not found!\n");
+	return;
 }
 
 void displayTasks(Task* taskArray,int taskCount)
