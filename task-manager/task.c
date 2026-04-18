@@ -147,5 +147,58 @@ void markAsCompleted(Task* taskArray, int taskCount)
 
 void filterTasks(Task* taskArray, int taskCount)
 { 
-	printf("filterTasks not implemented yet.\n");
+	int userChoice;
+	printf("Filter by:\n1. Priority\n2. Status\nEnter Choice: ");
+	scanf_s("%d", &userChoice);
+	getchar();
+
+	if (userChoice == 1) {
+		char filterPriority[PRIORITY_SIZE];
+		printf("Enter the priority to filter by (LOW, MED, HIGH): ");
+		fgets(filterPriority, PRIORITY_SIZE, stdin);
+		filterPriority[strcspn(filterPriority, "\n")] = '\0';
+
+		printf("----------------------------------------------------\n");
+		printf("		TASKS WITH PRIORITY: %s\n", filterPriority);
+		printf("----------------------------------------------------\n");
+
+		int found = 0;
+		for (int i = 0; i < taskCount; i++) {
+			if (_stricmp(taskArray[i].priority, filterPriority) == 0) {
+				printf("---------------------------------------------------------------------\n");
+				printf("ID: %d\tDescription: %s\tPriority: %s\tStatus: %s\n",
+					taskArray[i].id, taskArray[i].description,
+					taskArray[i].priority, taskArray[i].status);
+				printf("---------------------------------------------------------------------\n");
+				found = 1;
+			}
+		}
+		if (!found) printf("No task found with that priority.\n");
+	}
+	else if (userChoice == 2) {
+		char filterStatus[STATUS_SIZE];
+		printf("Enter status to filter by (to-do, Completed): ");
+		fgets(filterStatus, STATUS_SIZE, stdin);
+		filterStatus[strcspn(filterStatus, "\n")] = '\0';
+
+		printf("----------------------------------------------------\n");
+		printf("		TASKS WITH STATUS: %s\n", filterStatus);
+		printf("----------------------------------------------------\n");
+
+		int found = 0;
+		for (int i = 0; i < taskCount; i++) {
+			if (_stricmp(taskArray[i].status, filterStatus) == 0) {
+				printf("----------------------------------------------------\n");
+				printf("ID: %d\tDescription: %s\tPriority: %s\tStatus: %s\n",
+					taskArray[i].id, taskArray[i].description,
+					taskArray[i].priority, taskArray[i].status);
+				printf("----------------------------------------------------------------------\n");
+				found = 1;
+			}
+		}
+		if (!found) printf("No tasks found with that status.\n");
+	}
+	else {
+		printf("Invalid Choice. Returning to menu\n");
+	}
 }
