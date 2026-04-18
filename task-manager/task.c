@@ -127,9 +127,21 @@ void displayTasks(Task* taskArray,int taskCount)
 	}
 }
 
-void markAsCompleted(Task* taskArra, int taskCount)
+void markAsCompleted(Task* taskArray, int taskCount)
 {
-	printf("markAsCompleted not implemented yet.\n");
+	int taskId;
+	printf("Enter Task ID: ");
+	scanf_s("%d", &taskId);
+	getchar();
+
+	for (int i = 0; i < taskCount; i++) {
+		if (taskArray[i].id == taskId) {
+			strcpy_s(taskArray[i].status, STATUS_SIZE, "Completed");
+			printf("Task %d completed. Congratulations!\n", taskId);
+			return;
+		}
+	}
+	printf("Task ID not found!\n");
 }
 
 

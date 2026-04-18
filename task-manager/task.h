@@ -27,10 +27,11 @@ void updateTask(Task* taskArray, int taskCount);
 
 void displayTasks(Task* taskArray, int taskCount);
 
+void markAsCompleted(Task* taskArray, int taskCount);
+
 /*
 void filterTasks(Task* taskArray, int taskCount);
 
-void markAsCompleted(Task* taskArray, int taskCount);
 
 void loadTasksFromFile(Task** taskArray, int* taskCount);*/
 
