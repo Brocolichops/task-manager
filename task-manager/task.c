@@ -117,7 +117,14 @@ void updateTask(Task* taskArray, int taskCount)
 
 void displayTasks(Task* taskArray,int taskCount)
 {
-	printf("displayTasks not implemented yet.\n");
+	printf("----------------------------------------------------\n");
+	printf("                    TO DO LIST\n");
+	printf("----------------------------------------------------\n");
+	for (int i = 0; i < taskCount; i++) {
+		printf("-----------------------------------------------------------------------------\n");
+		printf("ID: %d\tDescription: %s\tPriority: %s\tStatus: %s\n", taskArray[i].id, taskArray[i].description, taskArray[i].priority, taskArray[i].status);
+		printf("-----------------------------------------------------------------------------\n");
+	}
 }
 
 void markAsCompleted(Task* taskArra, int taskCount)
