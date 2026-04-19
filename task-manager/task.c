@@ -188,7 +188,7 @@ void filterTasks(Task* taskArray, int taskCount)
 		int found = 0;
 		for (int i = 0; i < taskCount; i++) {
 			if (_stricmp(taskArray[i].status, filterStatus) == 0) {
-				printf("----------------------------------------------------\n");
+				printf("----------------------------------------------------------------------\n");
 				printf("ID: %d\tDescription: %s\tPriority: %s\tStatus: %s\n",
 					taskArray[i].id, taskArray[i].description,
 					taskArray[i].priority, taskArray[i].status);
