@@ -8,6 +8,7 @@
 #define DESC_SIZE 50
 #define PRIORITY_SIZE 6
 #define STATUS_SIZE 12
+#define INPUT_SIZE 10
 
 typedef struct {
     int id;

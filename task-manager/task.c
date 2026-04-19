@@ -31,9 +31,18 @@ void addTask(Task** taskArray, int* taskCount)
 
 
 	printf("Enter Priority (LOW, MED, HIGH): ");
-	fgets(newTask->priority, PRIORITY_SIZE, stdin);
+	while (1)
+	{
+		fgets(newTask->priority, PRIORITY_SIZE, stdin);
+		newTask->priority[strcspn(newTask->priority, "\n")] = '\0';
 
-	newTask->priority[strcspn(newTask->priority, "\n")] = '\0';
+		if (strcmp(newTask->priority, "LOW") == 0 || strcmp(newTask->priority, "MED") == 0 || strcmp(newTask->priority, "HIGH") == 0) 
+		{
+			break;
+		}
+
+		printf("INVALID PRIORITY! Please enter LOW, MED, or HIGH: ");
+	}
 
 	strcpy_s(newTask->status, STATUS_SIZE, "to-do");
 	(*taskCount)++;
@@ -46,9 +55,31 @@ void addTask(Task** taskArray, int* taskCount)
 void removeTask(Task* taskArray, int* taskCount)
 {
 	int id;
+	char input[INPUT_SIZE];
+	if (*taskCount == 0) {
+		printf("No tasks to remove.\n");
+		return;
+	}
 
-	printf("Enter ID to remove: ");
-	scanf_s("%d", &id);
+	while (1)
+	{
+		printf("Enter ID to remove: ");
+		fgets(input, sizeof(input), stdin);
+
+		if (sscanf_s(input, "%d", &id) != 1) 
+		{
+			printf("INVALID INPUT! Please enter a valid task ID.\n");
+			continue;
+		}
+
+		if (id <= 0) 
+		{
+			printf("INVALID ID! Please enter a positive integer.\n");
+			continue;
+		}
+
+		break;
+	}
 
 	for (int i = 0; i < *taskCount; i++)
 	{
@@ -91,13 +122,13 @@ void updateTask(Task* taskArray, int taskCount)
 
 				taskArray[i].description[strcspn(taskArray[i].description, "\n")] = '\0';
 
-				printf("Task description sucessfully.\n");
+				printf("Task description sucessfully updated.\n");
 				return;
 			}
 			else if (userChoice == 2) {
 				printf("Current priority: %s\n", taskArray[i].priority);
 
-				printf("Enter new priority (LOW, MED OR HIGH): ");
+				printf("Enter new priority (LOW, MED, OR HIGH): ");
 				fgets(taskArray[i].priority, PRIORITY_SIZE, stdin);
 
 				taskArray[i].priority[strcspn(taskArray[i].priority, "\n")] = '\0';

@@ -10,12 +10,17 @@ int main() {
 	int taskCount = 0;
 	bool running = true;
 	int userChoice;
+	char input[INPUT_SIZE];
 
 	while (running) {
 		printf("1. Add a task\n2. Remove a task\n3. Update a task\n4. Display all tasks\n5. Mark as completed\n6. Filter tasks\n9 to QUIT PROGRAM\n");;
 		printf("Enter your choice: ");
-		scanf_s("%d", &userChoice);
-		getchar();
+
+		fgets(input, sizeof(input), stdin);
+		if (sscanf_s(input, "%d", &userChoice) != 1) {
+			printf("INVALID INPUT! Please enter a number from 1-6 or 9 to QUIT\n\n");
+			continue;
+		}
 
 		switch (userChoice) {
 		case 1:
@@ -47,7 +52,7 @@ int main() {
 			printf("EXITING PROGRAM!");
 			break;
 		default:
-			printf("INVALID INPUT! Please enter a number from 1-6 or 9 to QUIT\n");
+			printf("INVALID INPUT! Please enter a number from 1-6 or 9 to QUIT\n\n");
 			continue;
 		}
 
@@ -56,4 +61,3 @@ int main() {
 	free(taskArray);
 	return 0;
 }
-
