@@ -5,7 +5,7 @@ It allows the user to add and monitor tasks. Each task has the following attribu
   - ID
   - Description/Name
   - Priority
-  - Status\n
+  - Status
 The application is text-based and works on the CLI.
 Users have the ability to add tasks, remove tasks, update task information, filter tasks, and mark tasks as completed.
 
