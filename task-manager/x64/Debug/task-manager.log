@@ -1,1 +1,4 @@
-﻿  task-manager.vcxproj -> C:\Users\karth\source\repos\task-manager\x64\Debug\task-manager.exe
+﻿  main.c
+  task.c
+  Generating Code...
+  task-manager.vcxproj -> C:\Users\karth\source\repos\task-manager\x64\Debug\task-manager.exe

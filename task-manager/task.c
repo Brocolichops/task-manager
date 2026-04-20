@@ -18,10 +18,21 @@ void addTask(Task** taskArray, int* taskCount)
 	*taskArray = temp;
 	Task* newTask = &((*taskArray)[*taskCount]);
 
+	char input[INPUT_SIZE];
+	while (1)
+	{
+		printf("Enter Task ID: ");
+		fgets(input, sizeof(input), stdin);
 
-	printf("Enter Task ID: ");
-	scanf_s("%d", &newTask->id);
-	getchar();
+		input[strcspn(input, "\n")] = '\0';
+
+		if (sscanf_s(input, "%d", &newTask->id) != 1 || newTask->id <= 0)
+		{
+			printf("INVALID INPUT! Please enter a valid positive number for Task ID.\n");
+			continue;
+		}
+		break;
+	}
 
 
 	printf("Enter Description: ");
@@ -36,7 +47,7 @@ void addTask(Task** taskArray, int* taskCount)
 		fgets(newTask->priority, PRIORITY_SIZE, stdin);
 		newTask->priority[strcspn(newTask->priority, "\n")] = '\0';
 
-		if (strcmp(newTask->priority, "LOW") == 0 || strcmp(newTask->priority, "MED") == 0 || strcmp(newTask->priority, "HIGH") == 0) 
+		if (_stricmp(newTask->priority, "LOW") == 0 || _stricmp(newTask->priority, "MED") == 0 || _stricmp(newTask->priority, "HIGH") == 0)
 		{
 			break;
 		}
@@ -104,15 +115,45 @@ void updateTask(Task* taskArray, int taskCount)
 {
 	int id;
 	int userChoice;
-	printf("Enter id of task: ");
-	scanf_s("%d", &id);
+	char input[INPUT_SIZE];
+
+	if (taskCount == 0) 
+	{
+		printf("No tasks to update.\n");
+		return;
+	}
+
+	while (1)
+	{
+		printf("Enter id of task: ");
+		fgets(input, sizeof(input), stdin);
+
+		if (sscanf_s(input, "%d", &id) != 1 || id <= 0)
+		{
+			printf("INVALID INPUT! Please enter a valid positive number.\n");
+			continue;
+		}
+		break;
+	}
+	
 	
 	for (int i = 0; i < taskCount; i++) {
 		
 		if (taskArray[i].id == id) {
-			printf("Task ID found!\nWhat would you like to update?\n1. Task name\n2. Task priority\nEnter number: ");
-			scanf_s("%d", &userChoice);
-			getchar();
+			printf("Task ID found!\n");
+
+			while (1)
+			{
+				printf("What would you like to update ? \n1.Task name\n2.Task priority\nEnter number : ");
+				fgets(input, sizeof(input), stdin);
+
+				if (sscanf_s(input, "%d", &userChoice) != 1 || (userChoice != 1 && userChoice != 2))
+				{
+					printf("INVALID INPUT! Please enter 1 or 2.\n");
+					continue;
+				}
+				break;
+			}
 
 			if (userChoice == 1) {
 				printf("Current description: %s\n", taskArray[i].description);
@@ -125,29 +166,41 @@ void updateTask(Task* taskArray, int taskCount)
 				printf("Task description sucessfully updated.\n");
 				return;
 			}
+
 			else if (userChoice == 2) {
 				printf("Current priority: %s\n", taskArray[i].priority);
 
-				printf("Enter new priority (LOW, MED, OR HIGH): ");
-				fgets(taskArray[i].priority, PRIORITY_SIZE, stdin);
+				while (1)
+				{
+					printf("Enter new priority (LOW, MED, OR HIGH): ");
+					fgets(taskArray[i].priority, PRIORITY_SIZE, stdin);
+					taskArray[i].priority[strcspn(taskArray[i].priority, "\n")] = '\0';
 
-				taskArray[i].priority[strcspn(taskArray[i].priority, "\n")] = '\0';
+					if (strcmp(taskArray[i].priority, "LOW") == 0 || strcmp(taskArray[i].priority, "MED") == 0 || strcmp(taskArray[i].priority, "HIGH") == 0)
+					{
+						break;
+					}
+					printf("INVALID PRIORITY! Please enter LOW, MED, or HIGH: ");
+				}
 
 				printf("Task priority updated succesfully.\n");
 				return;
 			}
-			else {
-				printf("Invalid input. Returning to menu...\n");
-				return;
-			}
 		}
 	}
+
 	printf("Task ID not found!\n");
 	return;
 }
 
 void displayTasks(Task* taskArray,int taskCount)
 {
+	if (taskCount == 0) 
+	{
+		printf("No tasks available to display.\n");
+		return;
+	}
+
 	printf("----------------------------------------------------\n");
 	printf("                    TO DO LIST\n");
 	printf("----------------------------------------------------\n");
@@ -161,10 +214,27 @@ void displayTasks(Task* taskArray,int taskCount)
 void markAsCompleted(Task* taskArray, int taskCount)
 {
 	int taskId;
-	printf("Enter Task ID: ");
-	scanf_s("%d", &taskId);
-	getchar();
+	char input[INPUT_SIZE];
 
+	if(taskCount == 0)
+	{
+		printf("No tasks available to mark as completed.\n");
+		return;
+	}
+
+	while (1)
+	{
+		printf("Enter Task ID: ");
+		fgets(input, sizeof(input), stdin);
+
+		if (sscanf_s(input, "%d", &taskId) != 1 || taskId <= 0)
+		{
+			printf("INVALID INPUT! Please enter a valid positive number.\n");
+			continue;
+		}
+		break;
+	}
+	
 	for (int i = 0; i < taskCount; i++) {
 		if (taskArray[i].id == taskId) {
 			strcpy_s(taskArray[i].status, STATUS_SIZE, "Completed");
@@ -179,15 +249,42 @@ void markAsCompleted(Task* taskArray, int taskCount)
 void filterTasks(Task* taskArray, int taskCount)
 { 
 	int userChoice;
-	printf("Filter by:\n1. Priority\n2. Status\nEnter Choice: ");
-	scanf_s("%d", &userChoice);
-	getchar();
+	char input[INPUT_SIZE];
+
+	if (taskCount == 0)
+	{
+		printf("No tasks available to filter.\n");
+		return;
+	}
+
+	while (1)
+	{
+		printf("Filter by:\n1. Priority\n2. Status\nEnter Choice: ");
+		fgets(input, sizeof(input), stdin);
+
+		if (sscanf_s(input, "%d", &userChoice) != 1 || (userChoice != 1 && userChoice != 2))
+		{
+			printf("INVALID INPUT! Please enter 1 or 2.\n");
+			continue;
+		}
+		break;
+	}
 
 	if (userChoice == 1) {
 		char filterPriority[PRIORITY_SIZE];
-		printf("Enter the priority to filter by (LOW, MED, HIGH): ");
-		fgets(filterPriority, PRIORITY_SIZE, stdin);
-		filterPriority[strcspn(filterPriority, "\n")] = '\0';
+		
+		while (1)
+		{
+			printf("Enter the priority to filter by (LOW, MED, HIGH): ");
+			fgets(filterPriority, PRIORITY_SIZE, stdin);
+			filterPriority[strcspn(filterPriority, "\n")] = '\0';
+
+			if (strcmp(filterPriority, "LOW") == 0 || strcmp(filterPriority, "MED") == 0 || strcmp(filterPriority, "HIGH") == 0) 
+			 {
+				break;
+			 }
+			printf("INVALID PRIORITY! Please enter LOW, MED, or HIGH.\n");
+		}
 
 		printf("----------------------------------------------------\n");
 		printf("		TASKS WITH PRIORITY: %s\n", filterPriority);
@@ -204,13 +301,26 @@ void filterTasks(Task* taskArray, int taskCount)
 				found = 1;
 			}
 		}
-		if (!found) printf("No task found with that priority.\n");
+		if (!found) 
+		{
+			printf("No task found with that priority.\n");
+		}
 	}
-	else if (userChoice == 2) {
+	else if (userChoice == 2) 
+	{
 		char filterStatus[STATUS_SIZE];
-		printf("Enter status to filter by (to-do, Completed): ");
-		fgets(filterStatus, STATUS_SIZE, stdin);
-		filterStatus[strcspn(filterStatus, "\n")] = '\0';
+
+		while (1)
+		{
+			printf("Enter the status to filter by (to-do, Completed): ");
+			fgets(filterStatus, STATUS_SIZE, stdin);
+			filterStatus[strcspn(filterStatus, "\n")] = '\0';
+			if (strcmp(filterStatus, "to-do") == 0 || strcmp(filterStatus, "Completed") == 0) 
+			{
+				break;
+			}
+			printf("INVALID STATUS! Please enter 'to-do' or 'Completed'.\n");
+		}
 
 		printf("----------------------------------------------------\n");
 		printf("		TASKS WITH STATUS: %s\n", filterStatus);
@@ -218,7 +328,8 @@ void filterTasks(Task* taskArray, int taskCount)
 
 		int found = 0;
 		for (int i = 0; i < taskCount; i++) {
-			if (_stricmp(taskArray[i].status, filterStatus) == 0) {
+			if (_stricmp(taskArray[i].status, filterStatus) == 0) 
+			{
 				printf("----------------------------------------------------------------------\n");
 				printf("ID: %d\tDescription: %s\tPriority: %s\tStatus: %s\n",
 					taskArray[i].id, taskArray[i].description,
@@ -227,9 +338,9 @@ void filterTasks(Task* taskArray, int taskCount)
 				found = 1;
 			}
 		}
-		if (!found) printf("No tasks found with that status.\n");
-	}
-	else {
-		printf("Invalid Choice. Returning to menu\n");
+		if (!found)
+		{
+			printf("No tasks found with that status.\n");
+		}
 	}
 }
